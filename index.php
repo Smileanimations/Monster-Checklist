@@ -22,7 +22,7 @@ $monsters = $query->fetchAll(PDO::FETCH_ASSOC);
         <h2 class="text-xl text-black p-3">Generation: <?=$i?></h2>
         <div class="border-t-4 border-black flex flex-row flex-wrap justify-items-center">
             <?php foreach($monsters as $key => $monster) {?>
-                <div class="p-3">
+                <div class="p-3 text-center">
                     <?php if ($monster['generations'] == $i) {?>
                     <img class="object-contain size-20" src="./Images/Icons/<?= str_replace(" ", "_", $monster['name'])?>_Icon.webp" alt="">
                     <?=$monster['name']?>
