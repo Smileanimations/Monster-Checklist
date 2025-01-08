@@ -2,9 +2,25 @@
 
 include_once("./Data/connection.php");
 
-$query = $conn->query("SELECT * FROM `monsters`");
+$query = $conn->query("SELECT * FROM `monsters` ORDER BY name");
 $monsters = $query->fetchAll(PDO::FETCH_ASSOC);
 
+$generations_array = array (
+    1 => array(),
+    2 => array(),
+    3 => array(),
+    4 => array(),
+    5 => array(),
+    6 => array(),
+);
+
+foreach ($monsters as $monster) {
+    for ($i=1; $i < 7; $i++) { 
+        if ($monster['generations'] == $i) {
+            array_push($generations_array[$i], $monster); //Bedankt Melvyn!
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,20 +33,25 @@ $monsters = $query->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <?php for ($i=1; $i < 6; $i++) {?>
-    <div>
-        <h2 class="text-xl text-black p-3">Generation: <?=$i?></h2>
-        <div class="border-t-4 border-black flex flex-row flex-wrap justify-items-center">
-            <?php foreach($monsters as $key => $monster) {?>
-                <div class="p-3 text-center">
-                    <?php if ($monster['generations'] == $i) {?>
-                    <img class="object-contain size-20" src="./Images/Icons/<?= str_replace(" ", "_", $monster['name'])?>_Icon.webp" alt="">
-                    <?=$monster['name']?>
+    <form action="POST"></form>
+        <?php foreach ($generations_array as $key => $monsters) {?>
+        <div>
+            <h2 class="text-xl text-black p-3">Generation: <?=$key?></h2>
+            <div class="border-t-4 border-black flex flex-wrap ">
+                <?php 
+                    foreach ($monsters as $monster) {?>
+                        <div class="m-5 text-center size-32 justify-center">
+                            <label class="flex flex-col items-center">
+                                <img class="object-contain size-20" src="./Images/Icons/<?= str_replace(" ", "_", $monster['name'])?>_Icon.webp" alt="${monster.name}" 
+                                onerror="this.onerror=null; this.src='./Images/Icons/Default_<?= $monster['generations']?>_Icon.webp';" >
+                                <?=$monster['name']?>
+                                <input type="checkbox" value="true" id="hunted">
+                            </label>
+                        </div>
                     <?php }?>
-                </div>
-            <?php }?>
+            </div>
         </div>
-    </div>
-    <?php }?>
+        <?php }?>
+    </form>
 </body>
 </html>
