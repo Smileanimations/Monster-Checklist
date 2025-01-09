@@ -4,6 +4,7 @@ include_once("./Data/connection.php");
 
 $query = $conn->query("SELECT * FROM `monsters` ORDER BY name");
 $monsters = $query->fetchAll(PDO::FETCH_ASSOC);
+$hunted = $_REQUEST['hunted'];	
 
 $generations_array = array (
     1 => array(),
@@ -20,7 +21,13 @@ foreach ($monsters as $monster) {
             array_push($generations_array[$i], $monster); //Bedankt Melvyn!
         }
     }
+    if ($_SERVER['REQUEST_METHOD'] == $_POST) {
+        $query = "UPDATE monsters SET hunted = $hunted WHERE name = " . $monster['name'];
+    }
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +41,7 @@ foreach ($monsters as $monster) {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <form action="POST">
+    <form method="POST" action="index.php">
         <header class="mb-32 p-4 flex justify-between items-center">
             <h1 class="text-5xl text-black font-medium antialiased p-1">Monster Checklist</h1>
             <button class="rounded-full bg-stone-500 text-stone-300 p-2 px-4" id="submitbutton" disabled>Submit Changes</button>
@@ -51,7 +58,7 @@ foreach ($monsters as $monster) {
                                 <img class="object-contain size-20" src="./Images/Icons/<?= str_replace(" ", "_", $monster['name'])?>_Icon.webp" alt="${monster.name}" 
                                 onerror="this.onerror=null; this.src='./Images/Icons/Default_<?= $monster['generations']?>_Icon.webp';" >
                                 <?=$monster['name']?>
-                                <input type="checkbox" value="true" id="hunted" class="my-3">
+                                <input type="checkbox" value="true" id="hunted" class="my-3" name="hunted">
                             </label>
                         </div>
                     <?php }?>

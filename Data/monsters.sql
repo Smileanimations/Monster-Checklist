@@ -12,7 +12,9 @@ CREATE TABLE monsters(
   ,species     VARCHAR(12) NOT NULL
   ,element     VARCHAR(33)
   ,ailment     VARCHAR(25)
+  ,hunted      BOOLEAN DEFAULT FALSE
 );
+
 INSERT INTO monsters(id,name,generations,class,species,element,ailment) VALUES
  (1,'Ashen Lao-Shan Lung',1,'Elder Dragon','Subspecies','Dragon','None')
 ,(2,'Azure Rathalos',1,'Flying Wyvern','Subspecies','Fire','Poison')
@@ -128,7 +130,7 @@ INSERT INTO monsters(id,name,generations,class,species,element,ailment) VALUES
 ,(112,'Molten Tigrex',4,'Flying Wyvern','Rare Species','None','Blast')
 ,(113,'Najarala',4,'Snake Wyvern','Original','None','Paralysis')
 ,(114,'Nerscylla',4,'Temnoceran','Original','None','Sleep, Poison, Webbed')
-,(115,'Orishi Kirin',4,'Elder Dragon','Subspecies','Ice','Snowman')
+,(115,'Oroshi Kirin',4,'Elder Dragon','Subspecies','Ice','Snowman')
 ,(116,'Raging Brachydios',4,'Brute Wyvern','Variant','Fire','Blast')
 ,(117,'Ruby Basarios',4,'Flying Wyvern','Subspecies','Fire','Sleep, Poison')
 ,(118,'Seltas',4,'Neopteron','Original','None','Defense Down')
@@ -171,7 +173,7 @@ INSERT INTO monsters(id,name,generations,class,species,element,ailment) VALUES
 ,(155,'Acidic Glavenus',5,'Brute Wyvern','Subspecies','None','Defense Down')
 ,(156,'Anjanath',5,'Brute Wyvern','Original','Fire','None')
 ,(157,'Banbaro',5,'Brute Wyvern','Original','None','None')
-,(158,'Bazelguese',5,'Flying Wyvern','Original','Fire','None')
+,(158,'Bazelgeuse',5,'Flying Wyvern','Original','Fire','None')
 ,(159,'Beotodus',5,'Piscine Wyvern','Original','Ice','None')
 ,(160,'Blackveil Vaal Hazak',5,'Elder Dragon','Variant','None','Effluvium')
 ,(161,'Coral Pukei-Pukei',5,'Bird Wyvern','Subspecies','Water','None')
